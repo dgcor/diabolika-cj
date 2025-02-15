@@ -1,0 +1,27 @@
+Diabolika uses the zLib license.
+
+A part of the BitmapFont class is based on a bitmap font implementation for SDL
+by Lazy Foo' Productions. The license is incompatible with GPL like licenses.
+
+http://lazyfoo.net
+
+cjsfml uses the zlib/png license.
+
+https://github.com/causerp/cjsfml
+
+customiterators uses the MIT no attribution license.
+
+https://github.com/causerp/customiterators
+
+PhysFS uses the zlib license.
+
+https://github.com/icculus/physfs
+
+SFML uses the zlib/png license.
+
+https://github.com/SFML/SFML
+
+Other SFML code snippets were taken from the wiki
+and should have a permissive license.
+
+If you feel there is a problem with licensing, contact me.

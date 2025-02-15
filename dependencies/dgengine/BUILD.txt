@@ -1,0 +1,11 @@
+* All platforms
+
+The easiest way to get the required dependencies is to use vcpkg.
+
+vcpkg install physfs sfml
+
+PhysicsFS - https://icculus.org/physfs
+            version >= 2.1
+
+SFML - https://www.sfml-dev.org/
+       SFML 2.6.2

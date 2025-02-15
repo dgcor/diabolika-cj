@@ -1,0 +1,101 @@
+name: Deploy_Linux
+
+on: [workflow_dispatch]
+
+env:
+    VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
+
+jobs:
+  deploy_linux:
+    name: linux deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Diabolika
+      uses: actions/checkout@v3
+
+    - name: Export GitHub Actions cache environment variables
+      uses: actions/github-script@v6
+      with:
+        script: |
+          core.exportVariable('ACTIONS_CACHE_URL', process.env.ACTIONS_CACHE_URL || '');
+          core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN || '');
+
+    - name: Install Ubuntu dependencies
+      uses: awalsh128/cache-apt-pkgs-action@latest
+      with:
+        packages: fuse libx11-dev libxrandr-dev libxcursor-dev libxi-dev libudev-dev libgl1-mesa-dev
+        version: 1.0
+        execute_install_scripts: true
+
+    - name: Setup Ninja Build
+      uses: turtlesec-no/get-ninja@main
+
+    - name: Build and install SFML
+      run: |
+        vcpkg install sfml --triplet=x64-linux --overlay-ports=dependencies/vcpkg
+
+    - name: Build and install CSFML
+      run: |
+        git clone --branch feature/right-align-text https://github.com/dgcor/CSFML.git dependencies/csfml
+        cp -f dependencies/CMakePresets.json dependencies/csfml/CMakePresets.json
+        cd dependencies/csfml
+        cmake --preset linux-release -DCMAKE_TOOLCHAIN_FILE=/usr/local/share/vcpkg/scripts/buildsystems/vcpkg.cmake
+        cmake --build --preset linux-release --target install
+
+    - name: Build and install physfs
+      run: |
+        git clone https://github.com/icculus/physfs.git dependencies/physfs
+        cp -f dependencies/CMakePresets.json dependencies/physfs/CMakePresets.json
+        cd dependencies/physfs
+        cmake --preset linux-release
+        cmake --build --preset linux-release --target install
+
+    - name: Setup Cangjie
+      run: |
+        curl -L -o Cangjie-0.53.18-linux_x64.tar.gz https://github.com/causerp/cangjie/releases/download/v0.53.18/Cangjie-0.53.18-linux_x64.tar.gz
+        tar -xzf Cangjie-0.53.18-linux_x64.tar.gz -C .
+
+    - name: Build Diabolika
+      run: |
+        find . -name "cjpm.toml" -exec sed -i 's/--dy-std --dy-libs/--disable-reflection --static-std --static-libs/g' {} \;
+        find . -name "cjpm.toml" -exec sed -i 's/link-option = ""/link-option = "-s"/g' {} \;
+        find . -name "cjpm.toml" -exec sed -i 's/output-type = "dynamic"/output-type = "static"/g' {} \;
+        source ./cangjie/envsetup.sh
+        cjpm build
+
+    - name: Install LinuxDeploy
+      run: |
+        cd target/release/bin
+        wget https://github.com/linuxdeploy/linuxdeploy/releases/download/continuous/linuxdeploy-x86_64.AppImage -N
+        chmod +x linuxdeploy-x86_64.AppImage
+
+    - name: Create AppImage
+      run: |
+        source ./cangjie/envsetup.sh
+        cp dependencies/csfml/install/lib/*.so* target/release/bin
+        cp dependencies/physfs/install/lib/*.so* target/release/bin
+        cd target/release/bin
+        mv main Diabolika
+        ls -l .
+        ./linuxdeploy-x86_64.AppImage \
+          --executable=Diabolika \
+          -llibcsfml-audio.so.2.6 \
+          -llibcsfml-graphics.so.2.6 \
+          -llibcsfml-network.so.2.6 \
+          -llibcsfml-system.so.2.6 \
+          -llibcsfml-window.so.2.6 \
+          -llibphysfs.so.1 \
+          --appdir appdir \
+          --desktop-file=../../../pkg/linux/diabolika.desktop \
+          --icon-file=../../../pkg/linux/icon.png \
+          --output=appimage
+        mv Diabolika-x86_64.AppImage ../../../Diabolika-x86_64.AppImage
+
+    - name: Create Diabolika zip
+      run: 7z a Diabolika-linux-x86_64.AppImage.zip Diabolika-x86_64.AppImage LICENSE.* README.* main.json gamefiles*
+
+    - name: Create Diabolika zip artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: artifact-Diabolika-linux-x86_64.AppImage
+        path: Diabolika-linux-x86_64.AppImage.zip

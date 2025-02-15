@@ -1,0 +1,16 @@
+[package]
+  cjc-version = "0.53.18"
+  compile-option = "--dy-std --dy-libs -O2"
+  description = "Diabolika game"
+  link-option = ""
+  name = "Diabolika"
+  output-type = "executable"
+  src-dir = ""
+  target-dir = ""
+  version = "1.2.1"
+  package-configuration = {}
+
+[dependencies]
+  cjsfml = { path = "dependencies/cjsfml" }
+  customiterators = { path = "dependencies/customiterators" }
+  dgengine = { path = "dependencies/dgengine" }

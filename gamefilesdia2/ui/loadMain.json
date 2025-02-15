@@ -1,0 +1,12 @@
+{
+  "load.actions": "res/actions.json",
+  "game": {
+    "icon": "res/icon.png",
+    "onClose": "saveSettingsAndClose"
+  },
+  "load.textures": "res/textures.json",
+  "load.fonts": "res/fonts.json",
+  "load.gameInputEvents": "ui/gameInputEvents.json",
+  "load.inputEvents": "ui/inputEvents.json",
+  "load.mainMenu": "ui/mainMenu.json"
+}
