@@ -18,23 +18,23 @@ class LevelStats {
 
     func decrementUnitCount(unitClass: UnitClass): Unit {
         var idEntry = m_nunUnitsById.entryView(unitClass.id)
-        match (idEntry.getValue()) {
-            case Some(count) where count > 0 => idEntry.setValue(count - 1)
-            case _ => idEntry.setValue(0)
+        match (idEntry.value) {
+            case Some(count) where count > 0 => idEntry.value = count - 1
+            case _ => idEntry.value = 0
         }
 
         var typeEntry = m_numUnitsByType.entryView(unitClass.clsType)
-        match (typeEntry.getValue()) {
-            case Some(count) where count > 0 => typeEntry.setValue(count - 1)
-            case _ => typeEntry.setValue(0)
+        match (typeEntry.value) {
+            case Some(count) where count > 0 => typeEntry.value = count - 1
+            case _ => typeEntry.value = 0
         }
     }
 
     func incrementUnitCount(unitClass: UnitClass): Unit {
         var idEntry = m_nunUnitsById.entryView(unitClass.id)
-        idEntry.setValue((idEntry.getValue() ?? 0) + 1)
+        idEntry.value = (idEntry.value ?? 0) + 1
 
         var typeEntry = m_numUnitsByType.entryView(unitClass.clsType)
-        typeEntry.setValue((typeEntry.getValue() ?? 0) + 1)
+        typeEntry.value = (typeEntry.value ?? 0) + 1
     }
 }

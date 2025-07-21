@@ -3,13 +3,14 @@ package Diabolika
 import dgengine.*
 import std.collection.*
 import std.convert.*
+import std.sort.*
 
 class LevelScoreManager {
     private static const MaxSize = 10
     private var m_levelScores = ArrayList<LevelScore>()
 
     func add(levelScore: LevelScore): Unit {
-        m_levelScores.append(levelScore)
+        m_levelScores.add(levelScore)
         updateScores()
     }
 
@@ -19,8 +20,9 @@ class LevelScoreManager {
     }
 
     private func updateScores(): Unit {
-        m_levelScores.sortBy(
-            comparator: {
+        sort(
+            m_levelScores,
+            by: {
                 a, b =>
                 if (b.score > a.score) {
                     return Ordering.GT

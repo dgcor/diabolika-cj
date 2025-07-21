@@ -2,7 +2,7 @@ package Diabolika
 
 import cjsfml.system.*
 import dgengine.*
-import encoding.json.*
+import stdx.encoding.json.*
 
 func parseUnit(game: Game, elem: JsonValue): Unit {
     if (let Some(level) <- game.resources.getLevel<Level>(getStringCharKey(elem, "level"))) {

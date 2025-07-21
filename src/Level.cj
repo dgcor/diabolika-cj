@@ -107,7 +107,7 @@ class Level {
     // game related
 
     func addUnitClass(key: String, cls: UnitClass): Unit {
-        unitsClasses.put(key, cls)
+        unitsClasses.add(key, cls)
     }
 
     func getUnitClass(key: String): ?UnitClass {
@@ -153,7 +153,7 @@ class Level {
         if (cell.isWall == false) {
             gameState.walls++
 
-            m_currentWalls.append(boardPos)
+            m_currentWalls.add(boardPos)
 
             cell.isWall = true
             cell.tile.setAnimation(Int32(cell.tileGroupIdx), 0)
@@ -327,7 +327,7 @@ class Level {
             }
             if (let Some(cls) <- getUnitClass(classId)) {
                 while (count > 0) {
-                    levelUnitsQueue.append(UnitObject(cls))
+                    levelUnitsQueue.add(UnitObject(cls))
                     count--
                 }
             }
@@ -337,20 +337,20 @@ class Level {
             let id = levelUnitsQueue[0].cls.id
             var max = options.getMaxUnitsById(id)
             if (max > 0 && m_stats.countUnitsById(id) >= max) {
-                levelUnitsQueue.remove(0)
+                levelUnitsQueue.remove(at: 0)
                 continue
             }
             let clsType = levelUnitsQueue[0].cls.clsType
             max = options.getMaxUnitsByType(clsType)
             if (max > 0 && m_stats.countUnitsByType(clsType) >= max) {
-                levelUnitsQueue.remove(0)
+                levelUnitsQueue.remove(at: 0)
                 continue
             }
             let boardPos = (Random.get(board.size[0] - 1), Random.get(board.size[1] - 1))
             if (board.isCoordFree(boardPos) == false) {
                 continue
             }
-            addUnit(levelUnitsQueue.remove(0), boardPos)
+            addUnit(levelUnitsQueue.remove(at: 0), boardPos)
         }
     }
 
@@ -400,7 +400,7 @@ class Level {
             case Detonate =>
                 if (gameState.detonators > 0) {
                     gameState.chain = 0
-                    m_currentExplosions.append(gameState.selectedPosition)
+                    m_currentExplosions.add(gameState.selectedPosition)
                     gameState.detonators--
                     gameState.state = Exploding
                 }

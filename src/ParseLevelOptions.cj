@@ -1,7 +1,7 @@
 package Diabolika
 
 import dgengine.*
-import encoding.json.*
+import stdx.encoding.json.*
 import std.collection.*
 import std.math.*
 
@@ -26,7 +26,7 @@ func parseLevelOptions(optionsManager: LevelOptionsManager, elem: JsonArray): Un
                     continue
                 }
                 let count = getStringKey(val, "count")
-                options.insertUnits.append((id, Formula(count)))
+                options.insertUnits.add((id, Formula(count)))
             }
         }
         if (let Some(elem) <- getValidArray(val, "queueUnits")) {
@@ -36,7 +36,7 @@ func parseLevelOptions(optionsManager: LevelOptionsManager, elem: JsonArray): Un
                 if (id.isEmpty() == true) {
                     continue
                 }
-                options.queueUnits.append(id)
+                options.queueUnits.add(id)
             }
         }
         if (let Some(elem) <- getValidArray(val, "maxUnitsById")) {
@@ -47,7 +47,7 @@ func parseLevelOptions(optionsManager: LevelOptionsManager, elem: JsonArray): Un
                     continue
                 }
                 let count = Int64(getUIntKey(val, "count"))
-                options.maxUnitsById.put(id, count)
+                options.maxUnitsById.add(id, count)
             }
         }
         if (let Some(elem) <- getValidArray(val, "maxUnitsByType")) {
@@ -58,10 +58,10 @@ func parseLevelOptions(optionsManager: LevelOptionsManager, elem: JsonArray): Un
                     continue
                 }
                 let count = Int64(getUIntKey(val, "count"))
-                options.maxUnitsByType.put(unitType, count)
+                options.maxUnitsByType.add(unitType, count)
             }
         }
-        allOptions.append(options)
+        allOptions.add(options)
     }
     optionsManager.set(allOptions)
 }

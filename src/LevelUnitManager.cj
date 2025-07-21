@@ -137,11 +137,11 @@ class LevelUnitManager <: Iterable<LevelUnitQueue> {
         }
         var unitQueue2 = unitQueue
         if (unitQueue2.queue.isEmpty() == false) {
-            unitQueue2.unit = unitQueue2.queue.remove(0)
+            unitQueue2.unit = unitQueue2.queue.remove(at: 0)
             return unitQueue2
         }
         if (m_sharedUnitsQueue.isEmpty() == false) {
-            unitQueue2.unit = m_sharedUnitsQueue.remove(0)
+            unitQueue2.unit = m_sharedUnitsQueue.remove(at: 0)
             return unitQueue2
         }
         if (level.unitsClasses.isEmpty() == true || level.options.queueUnits.isEmpty() == true) {
@@ -167,7 +167,7 @@ class LevelUnitManager <: Iterable<LevelUnitQueue> {
         }
         let newUnit = UnitObject(cls.getOrThrow())
 
-        unitQueue.append(newUnit)
+        unitQueue.add(newUnit)
 
         let link = newUnit.cls.links
         if (link.isEmpty() == false) {
@@ -180,8 +180,8 @@ class LevelUnitManager <: Iterable<LevelUnitQueue> {
                         UnitObject.updateLink(newUnit, newExplLink)
 
                         match (newUnit.cls.linkType) {
-                            case LinkUnit => m_sharedUnitsQueue.append(newExplLink)
-                            case _ => unitQueue.append(newExplLink)
+                            case LinkUnit => m_sharedUnitsQueue.add(newExplLink)
+                            case _ => unitQueue.add(newExplLink)
                         }
                         linkCount--
                     }
@@ -198,10 +198,10 @@ class LevelUnitManager <: Iterable<LevelUnitQueue> {
                 unitQueue.unit = unit
                 m_unitQueues[queueIndex] = unitQueue
             } else {
-                unitQueue.queue.append(unit)
+                unitQueue.queue.add(unit)
             }
         } else {
-            m_sharedUnitsQueue.append(unit)
+            m_sharedUnitsQueue.add(unit)
         }
     }
 }

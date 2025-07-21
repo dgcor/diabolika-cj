@@ -1,7 +1,7 @@
 package Diabolika
 
 import dgengine.*
-import encoding.json.*
+import stdx.encoding.json.*
 
 func parseDocumentElem(game: Game, name: String, elem: JsonValue, replaceVars: Box<ReplaceVars>): Bool {
     match (name) {

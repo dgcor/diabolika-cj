@@ -65,7 +65,7 @@ class UnitObject <: Animation & TextureQueryable {
                     if (obj.isClosed() == false) {
                         if (level.board.isCoordValid(obj.boardPosition) == true) {
                             obj.m_disableExplosion = false
-                            newExplosions.append(obj.boardPosition)
+                            newExplosions.add(obj.boardPosition)
                         }
                     }
                 }
@@ -73,7 +73,7 @@ class UnitObject <: Animation & TextureQueryable {
                 if (let Some(obj) <- linkedTo) {
                     if (obj.isClosed() == false) {
                         if (level.board.isCoordValid(obj.boardPosition) == true) {
-                            newExplosions.append(obj.boardPosition)
+                            newExplosions.add(obj.boardPosition)
                         }
                     }
                 }
@@ -85,7 +85,7 @@ class UnitObject <: Animation & TextureQueryable {
                         let unit = level.board.getUnit(x, y)
                         if (let Some(unit) <- unit) {
                             if (unit.cls.id == link) {
-                                newExplosions.append((x, y))
+                                newExplosions.add((x, y))
                             }
                         }
                     }
@@ -108,12 +108,12 @@ class UnitObject <: Animation & TextureQueryable {
                         break
                     }
                     if (blastExpands == false) {
-                        newExplosions.append((x, y))
+                        newExplosions.add((x, y))
                         break
                     }
 
                     if (level.board.hasUnit((x, y)) == true) {
-                        newExplosions.append((x, y))
+                        newExplosions.add((x, y))
                     }
                     if (explodeBoardPos[0] > 0) {
                         x++
@@ -146,12 +146,12 @@ class UnitObject <: Animation & TextureQueryable {
                     hasher.write(expPos[1])
                     let hash = hasher.finish()
                     if (expPos != boardPosition && randomVecHashes.contains(hash) == false) {
-                        randomVec.append(expPos)
-                        randomVecHashes.put(hash)
+                        randomVec.add(expPos)
+                        randomVecHashes.add(hash)
                         explodeUnits--
                     }
                 }
-                newExplosions.appendAll(randomVec)
+                newExplosions.add(all: randomVec)
             }
         }
 

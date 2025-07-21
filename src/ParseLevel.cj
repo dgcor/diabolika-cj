@@ -1,7 +1,7 @@
 package Diabolika
 
 import dgengine.*
-import encoding.json.*
+import stdx.encoding.json.*
 
 func parseLevel(game: Game, elem: JsonValue): Unit {
     let id = getStringCharKey(elem, "id")

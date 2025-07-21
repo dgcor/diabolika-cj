@@ -57,7 +57,7 @@ class UnitClass <: Equatable<UnitClass> {
     }
 
     func addExplodePattern(pattern: ArrayList<(Int64, Int64)>): Unit {
-        explodePatterns.append(pattern)
+        explodePatterns.add(pattern)
     }
 
     func generateExplodeUnits(): Int64 {

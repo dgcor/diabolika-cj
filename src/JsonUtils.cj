@@ -1,6 +1,6 @@
 package Diabolika
 
-import encoding.json.*
+import stdx.encoding.json.*
 
 extend JsonValue {
     func isArray(): Bool {

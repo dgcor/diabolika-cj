@@ -3,6 +3,7 @@ package Diabolika
 import customiterators.*
 import dgengine.*
 import std.collection.*
+import std.sort.*
 
 class LevelOptionsManager {
     private var m_options = ArrayList<LevelOptions>()
@@ -18,8 +19,9 @@ class LevelOptionsManager {
 
     func set(options: ArrayList<LevelOptions>): Unit {
         m_options = options
-        m_options.sortBy(
-            comparator: {
+        sort(
+            m_options,
+            by: {
                 a, b =>
                 if (a.level < b.level) {
                     return Ordering.LT

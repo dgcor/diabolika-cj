@@ -1,7 +1,7 @@
 package Diabolika
 
 import dgengine.*
-import encoding.json.*
+import stdx.encoding.json.*
 
 func parseActionElem(_: Game, name: String, elem: JsonValue): ?Action {
     match (name) {

@@ -1,7 +1,7 @@
 package Diabolika
 
 import dgengine.*
-import encoding.json.*
+import stdx.encoding.json.*
 import std.collection.*
 
 func getUnitLinkKey(elem: JsonValue, key: String, default!: UnitLink = NoLink): UnitLink {
@@ -20,7 +20,7 @@ func parseExplodePattern(unitClass: UnitClass, elem: JsonArray): Unit {
                 if (explodePoint.x == 0 && explodePoint.y == 0) {
                     continue
                 }
-                explodePattern.append((Int64(explodePoint.x), Int64(explodePoint.y)))
+                explodePattern.add((Int64(explodePoint.x), Int64(explodePoint.y)))
             } else if (val[0].isArray() == true) {
                 parseExplodePattern(unitClass, val)
             }

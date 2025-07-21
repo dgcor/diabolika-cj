@@ -80,12 +80,12 @@ class LevelDraw {
             var offsetY = 0.0f32
             if (let Some(ti) <- selectedUnit.getTexture(direction)) {
                 offsetY = Float32(ti.textureRect.height) - level.board.tileSize
-                vecTex.append(ti)
+                vecTex.add(ti)
             }
 
             let exploderPatterns = selectedUnit.cls.explodePatterns
             if (Int64(direction) < exploderPatterns.size && level.explodePatternTexturePack.isSome()) {
-                if (let Some(ti) <- level.explodePatternTexturePack?.get(0) ?? None) {
+                if (let Some(ti) <- (level.explodePatternTexturePack?.get(0) ?? None)) {
                     var ti2 = ti
                     let direction = Int64(direction)
                     for (exploderPattern in exploderPatterns[direction]) {
@@ -98,7 +98,7 @@ class LevelDraw {
                         }
                         ti2.offset.x = (Float32(exploderPattern[0]) * level.board.tileSize) + ti.offset.x
                         ti2.offset.y = (Float32(exploderPattern[1]) * level.board.tileSize) + ti.offset.y + offsetY
-                        vecTex.append(ti2)
+                        vecTex.add(ti2)
                     }
                 }
             }
