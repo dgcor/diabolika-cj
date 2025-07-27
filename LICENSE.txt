@@ -5,13 +5,17 @@ by Lazy Foo' Productions. The license is incompatible with GPL like licenses.
 
 http://lazyfoo.net
 
-cjsfml uses the zlib/png license.
+cjsfml and dgengine uses the zlib/png license.
 
 https://github.com/causerp/cjsfml
+https://github.com/dgcor/dgengine-cj
 
-customiterators uses the MIT no attribution license.
+cenum, ctemplate, customiterators and endian use the MIT no attribution license.
 
+https://github.com/causerp/cenum
+https://github.com/causerp/ctemplate
 https://github.com/causerp/customiterators
+https://github.com/causerp/endian
 
 PhysFS uses the zlib license.
 
