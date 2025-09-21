@@ -1,6 +1,5 @@
 package Diabolika
 
-import cjsfml.system.*
 import dgengine.*
 
 class ActLevelAddHighScore <: Action {

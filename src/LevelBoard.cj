@@ -2,7 +2,6 @@ package Diabolika
 
 import cjsfml.graphics.*
 import cjsfml.system.*
-import dgengine.*
 import std.collection.*
 
 class LevelBoard <: Iterable<LevelCell> {

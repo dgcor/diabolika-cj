@@ -1,8 +1,6 @@
 package Diabolika
 
-import dgengine.*
 import std.collection.*
-import std.convert.*
 
 class LevelStats {
     private let m_nunUnitsById = HashMap<String, Int64>()

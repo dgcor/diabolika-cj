@@ -1,6 +1,5 @@
 package Diabolika
 
-import cjsfml.graphics.*
 import dgengine.*
 import stdx.encoding.json.stream.*
 import std.collection.*

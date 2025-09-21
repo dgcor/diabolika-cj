@@ -3,7 +3,6 @@ package Diabolika
 import cjsfml.graphics.*
 import dgengine.*
 import std.collection.*
-import std.math.*
 
 class UnitClass <: Equatable<UnitClass> {
     var texturePack: TexturePack
